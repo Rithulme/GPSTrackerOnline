@@ -50,7 +50,7 @@ bool sendModemAndProcessResponse(String ATcomm, String returnMsg){
   bool returnFound = false;
   Serial2.println(ATcomm);
   delay(1000);
-  while(retries < 10 && receivedMsg.indexOf(returnMsg) == -1){
+  while(retries <= 10 && receivedMsg.indexOf(returnMsg) == -1){
     receivedMsg = readModem();
     retries++;
     Serial.print("Try to receive expected return message:");Serial.print(returnMsg);Serial.print(" Attempt:");Serial.println(retries);
@@ -73,13 +73,14 @@ bool sendModemAndProcessIP(String ATcomm){
   String receivedMsg = "";
   Serial2.println(ATcomm);
   delay(1000);
-  while(retries < 10 && countOccurence(receivedMsg , '.') < 4){
+  while(retries < 10 && countOccurence(receivedMsg , '.') < 3){
     receivedMsg = readModem();
     retries++;
+    Serial.println("read modem: " + receivedMsg);
     Serial.print("Try to receive expected return message:");Serial.print("Attempt:");Serial.println(retries);
     delay(1000);
   }
-  if(retries > 10) {
+  if(retries >= 10) {
     Serial.print("Ip NOT found in return after sending command: ");Serial.print(ATcomm);Serial.println(" Sorry .... timed out / failed \n....RESET program, hang on for 10s");
     //reset the module so we won't get stuck in for example the send SMS terminal mode
     mainState = 0;
@@ -230,6 +231,16 @@ void ManageModemState(){
         }
 
       case 9:
+        setupWifiAndWebsocket();
+        mainState = 10;
+        previousState = 8;
+
+      case 10:
         digitalWrite(startupLEDPin, true);
+        webSocket.loop();
+        if(!sendTest){
+          sendTest = true;
+          webSocket.sendTXT("test message sender");
+        }
   }
 }
