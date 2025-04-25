@@ -61,3 +61,9 @@ bool sendModemAndProcessIP(String ATcomm){
     return true;
   }
 }
+
+void GetGpsCoordinates(){
+  String GPSCommand = "AT+CGNSINF";
+  Serial.println("Getting gps coordinates");
+  Serial2.println(GPSCommand);
+}

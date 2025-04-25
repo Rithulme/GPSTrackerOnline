@@ -212,7 +212,7 @@ void ManageModemState(){
         break;
 
       case 11:
-
+        manageProcess();
         digitalWrite(startupLEDPin, true);
         break;
 
