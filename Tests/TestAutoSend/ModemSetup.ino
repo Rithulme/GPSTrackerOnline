@@ -103,7 +103,7 @@ void ManageModemState(){
         previousStep = millis();
       }
 
-      if(millis() - previousState > 7500){
+      if(millis() - previousStep > 7500){
         mainState = 1;
       }
 
@@ -118,7 +118,7 @@ void ManageModemState(){
         previousState = mainState;
       }
 
-      if(millis() - previousState > 7500){        
+      if(millis() - previousStep > 7500){        
         mainState = 2;
       }
 
@@ -131,7 +131,7 @@ void ManageModemState(){
         previousState = mainState;
       }
 
-      if(millis() - previousState > 7500){        
+      if(millis() - previousStep > 7500){        
         mainState = 3;
       }
 
@@ -232,6 +232,7 @@ void ManageModemState(){
 
       case 9:
         setupWifiAndWebsocket();
+        delay(3000);
         mainState = 10;
         previousState = 8;
 

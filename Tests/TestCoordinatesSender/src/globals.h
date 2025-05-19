@@ -1,9 +1,12 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 
-#include <WebSocketsClient.h>
+#include <PubSubClient.h>
+#include <WiFi.h>
 
-extern WebSocketsClient webSocket;
-extern String tempString;
+extern WiFiClient espClient;
+extern PubSubClient client;
+extern IPAddress mqtt_server;
+extern String clientId;
 
 #endif

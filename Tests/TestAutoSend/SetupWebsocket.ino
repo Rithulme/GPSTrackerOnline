@@ -3,6 +3,8 @@ void setupWifiAndWebsocket(){
   const char* websocket_path = "/ws/testCommunication";
   const int websocket_port = 1880;  
 
+  webSocket.begin()
+
   webSocket.begin(websocket_server, websocket_port, websocket_path);
   webSocket.onEvent(onWebSocketEvent); //callback
 }
